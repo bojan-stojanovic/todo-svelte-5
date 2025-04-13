@@ -5,6 +5,7 @@
     import TodoList from "./lib/TodoList.svelte";
 
     type Todo = {
+        id: string;
         message: string;
         completed: boolean;
     };
@@ -32,6 +33,7 @@
 
     function onAddTodo(message: string) {
         const todo = {
+            id: crypto.randomUUID(),
             message,
             completed: false,
         };
@@ -45,12 +47,17 @@
         activeFilter = filter;
     }
 
-    function onRemoveTodo(index: number) {
-        todos = todos.filter((_, i) => i !== index);
+    function onRemoveTodo(id: string) {
+        todos = todos.filter(todo => todo.id !== id);
     }
 
-    function onTodoUpdate(index: number) {
-        todos[index].completed = !todos[index].completed;
+    function onTodoUpdate(id: string) {
+        todos = todos.map(todo => {
+            if (todo.id === id) {
+                return { ...todo, completed: !todo.completed };
+            }
+            return todo;
+        });
     }
 
     onMount(fetchTodos);

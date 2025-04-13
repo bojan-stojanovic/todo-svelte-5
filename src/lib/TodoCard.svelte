@@ -2,21 +2,21 @@
     type Props = {
         message: string;
         completed: boolean;
-        index: number;
-        removeTodo: (index: number) => void;
-        todoStatus: (index: number) => void;
+        id: string;
+        removeTodo: (id: string) => void;
+        todoStatus: (id: string) => void;
     };
 
-    let { message, completed, index, removeTodo, todoStatus }: Props = $props();
+    let { message, completed, id, removeTodo, todoStatus }: Props = $props();
 </script>
 
 <div class="todo-card {completed ? 'completed' : ''}">
     <p>{message}</p>
     <div class="todo-card__controls">
-        <button class="toggle" onclick={() => todoStatus(index)}
+        <button class="toggle" onclick={() => todoStatus(id)}
             >Mark as done</button
         >
-        <button class="remove" onclick={() => removeTodo(index)}>Remove</button>
+        <button class="remove" onclick={() => removeTodo(id)}>Remove</button>
     </div>
 </div>
 
